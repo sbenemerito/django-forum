@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     posts = Post.objects.all().order_by('-date_added')
-    phixen = User.objects.get(id=7)
+    phixen = User.objects.get(id=1)
     tops = Post.objects.filter(author=phixen)
     context = {'posts': posts, 'tops': tops}
 
