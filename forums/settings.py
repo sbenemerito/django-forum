@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = '!qvo_db27o=#w&dokhli%xs3xw2d0ar7%@h^@xj*-o1my8v%y!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -141,5 +141,5 @@ if os.getcwd() == '/app':
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'forum/static'),
+    os.path.join(BASE_DIR, 'static'),
     )
