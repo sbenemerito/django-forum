@@ -37,7 +37,7 @@ def post_view(request, post_id):
 
 
 def edit_post(request, post_id):
-    post = Post.objects.get(id=post_id)
+    post = get_object_or_404(Post, id=post_id)
 
     if request.method == 'POST':
         form = PostForm(instance=post, data=request.POST)
@@ -67,7 +67,7 @@ def new_post(request):
 
 
 def user_view(request, user_name):
-    user = User.objects.get(username=user_name)
+    user = get_object_or_404(User, username=user_name)
     user_posts = Post.objects.filter(author=user)
     context = {'userprofile': user, 'posts': user_posts}
     return render(request, 'forum/user.html', context)
