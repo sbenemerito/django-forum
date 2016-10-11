@@ -1,0 +1,15 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card green lighten-5 hoverable">
+            <div class="card-content">
+                <h4 class="card-title black-text">The item you requested is not available. (404)</h4>
+                <br/>
+                <small><a href="{% url 'forum:index' %}">Go back to home page</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
