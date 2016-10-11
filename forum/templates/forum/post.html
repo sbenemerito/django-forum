@@ -1,0 +1,58 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+  <div class="row">
+      <div class="col s12">
+          <div class="card green lighten-5 hoverable">
+              <div class="card-content">
+                  {% if post.author.username == 'Phixen' %}
+                  <a href="{% url 'forum:post' post.id %}" class="card-title red-text"><b>{{ post.title }}</b></a>
+                  <br/>
+                  <small>{{ post.date_added }} | <a class="red-text darken-1" href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+                  {% else %}
+                  <a href="{% url 'forum:post' post.id %}" class="card-title black-text">{{ post.title }}</a>
+                  <br/>
+                  <small>{{ post.date_added }} | <a href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+                  {% endif %}
+                  <p class="flow-text">{{ post.text|linebreaks }}</p>
+                  <br/><br/>
+                  {% if user == post.author or user.username == 'Phixen' %}
+                  <div class="card-action">
+                      <a class="green-text text-accent-4" href="{% url 'forum:edit_post' post.id %}">Edit Post</a>
+                      <a class="green-text text-accent-4" href="#">Delete Post</a>
+                  </div>
+                  {% endif %}
+              </div>
+          </div>
+          <div class="card green lighten-5 hoverable">
+              <div class="card-content">
+                  <span class="card-title">Comments ({{ comment_count }})</span>
+                  {% if user.is_authenticated %}
+                  <br/>
+                  <form method="post" action="{% url 'forum:post' post.id %}">
+                      {% csrf_token %}
+                      <div class="row">
+                          <div class="input-field col s12">
+                              <textarea class="materialize-textarea" id="id_{{ form.text.name }}" name="{{ form.text.name }}" placeholder="Your comment goes here" required></textarea>
+                          </div>
+                      </div>
+                      <button class="btn green accent-4 waves-effect waves-light" type="submit" name="action">Submit</button>
+                  </form>
+                  {% endif %}
+                  <br/><br/>
+                  {% for comment in comments %}
+                      {% if comment.author.username == 'Phixen' %}
+                      <small><a class="red-text darken-1" href="{% url 'forum:user' comment.author.username %}">{{ comment.author }}</a> | {{ comment.date_added }}</small>
+                      <p class="flow-text">{{ comment.text|linebreaks }}</p>
+                      <br/>
+                      {% else %}
+                      <small><a href="{% url 'forum:user' comment.author.username %}">{{ comment.author }}</a> | {{ comment.date_added }}</small>
+                      <p class="flow-text">{{ comment.text|linebreaks }}</p>
+                      <br/>
+                      {% endif %}
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock content %}

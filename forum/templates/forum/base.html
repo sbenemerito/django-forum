@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forum</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="green lighten-4">
+    <a href="{% url 'forum:index' %}"><div class="row green darken-1">
+        <br/>
+        <h1 class="center-align black-text">Banner here</h1>
+        <br/>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large right-align white-text"><i class="material-icons">menu</i></a>
+    </div></a>
+    <ul id="slide-out" class="side-nav center-align">
+        {% if user.is_authenticated %}
+        <div class="row grey darken-4 white-text">
+            <br/>
+            <h5>Welcome back,</h5>
+            <h4><b>{{ user.username }}</b></h4>
+            <br/>
+        </div>
+        <div class="row grey lighten-3">
+            <li><a href="{% url 'forum:user' user.username %}">Your posts</a></li>
+            <li><a href="{% url 'forum:new_post' %}">Add Post</a></li>
+            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+        </div>
+        {% else %}
+        <div class="row grey darken-4 white-text">
+            <br/>
+            <h5><b>Hello there,</b></h5>
+            <p>you aren't logged in</p>
+            <br/>
+        </div>
+        <div class="row grey lighten-3">
+            <li><a href="{% url 'users:login' %}">Login</a></li>
+            <li><a href="{% url 'users:register' %}">Register</a></li>
+        </div>
+        {% endif %}
+        <div class="row grey lighten-3">
+            <li><a href="#!">About</a></li>
+            <li><a href="#!">FAQ</a></li>
+            <li><a href="#!">Rules</a></li>
+        </div>
+    </ul>
+
+    {% block content %}
+    {% endblock content %}
+
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script>
+        $('.button-collapse').sideNav({
+            menuWidth: 300,
+            closeOnClick: true,
+            edge: 'right',
+          }
+        );
+    </script>
+</body>
+</html>

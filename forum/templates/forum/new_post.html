@@ -1,0 +1,29 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+  <div class="row">
+      <div class="col s12">
+          <div class="card green lighten-5 hoverable">
+              <div class="card-content">
+                  <span class="card-title">New post</span>
+                  <form method="post" action="{% url 'forum:new_post' %}">
+                      {% csrf_token %}
+                      <div class="row">
+                          <div class="input-field col s12">
+                              <input id="id_{{ form.title.name }}" name="{{ form.title.name }}" maxlength="150" type="text" value="" required>
+                              <label for="id_{{ form.title.name }}">{{ form.title.label }}</label>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="input-field col s12">
+                              <textarea class="materialize-textarea" id="id_{{ form.text.name }}" name="{{ form.text.name }}" required></textarea>
+                              <label for="id_{{ form.text.name }}">{{ form.text.label }}</label>
+                          </div>
+                      </div>
+                      <button class="btn green accent-4 waves-effect waves-light" type="submit" name="action">Submit</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock content %}

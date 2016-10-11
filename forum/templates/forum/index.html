@@ -1,0 +1,35 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        {% for post in tops %}
+        <div class="card green lighten-5 hoverable">
+            <div class="card-content">
+                <a href="{% url 'forum:post' post.id %}" class="card-title red-text"><b>{{ post.title }}</b></a>
+                <br/>
+                <small>{{ post.date_added }} | <a class="red-text darken-1" href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+            </div>
+            <div class="card-action">
+                <a class="green-text text-accent-4" href="{% url 'forum:post' post.id %}">Comments ({{ post.comment_set.count }})</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for post in posts %}
+        {% if post not in tops %}
+        <div class="card green lighten-5 hoverable">
+            <div class="card-content">
+                <a href="{% url 'forum:post' post.id %}" class="card-title black-text">{{ post.title }}</a>
+                <br/>
+                <small>{{ post.date_added }} | <a href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+            </div>
+            <div class="card-action">
+                <a class="green-text text-accent-4" href="{% url 'forum:post' post.id %}">Comments ({{ post.comment_set.count }})</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
