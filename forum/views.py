@@ -74,6 +74,6 @@ def user_view(request, user_name):
 
 
 def userlist(request):
-    users = User.objects.all()
+    users = User.objects.all().order_by(id)
     context = {'users': users}
     return render(request, 'forum/userlist.html', context)
