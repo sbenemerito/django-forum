@@ -71,3 +71,9 @@ def user_view(request, user_name):
     user_posts = Post.objects.filter(author=user)
     context = {'userprofile': user, 'posts': user_posts}
     return render(request, 'forum/user.html', context)
+
+
+def userlist(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'forum/userlist.html', context)

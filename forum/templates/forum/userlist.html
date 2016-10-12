@@ -1,0 +1,29 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card green lighten-5 hoverable">
+            <div class="card-content">
+                <p class="card-title"><b>User List</b></p>
+            </div>
+        </div>
+
+        <div class="card green lighten-5 hoverable">
+            <div class="card-content">
+                <ul class="flow-text">
+                    {% for usr in users %}
+                        {% if usr.username == 'Phixen' %}
+                        <li><a class="red-text darken-1" href="{% url 'forum:user' usr.id %}">{{ usr.username }}</a> ({{ usr.post_set.count }})</li>
+                        <br/>
+                        {% else %}
+                        <li><a href="{% url 'forum:user' usr.id %}">{{ usr.username }}</a> ({{ usr.post_set.count }})</li>
+                        <br/>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
