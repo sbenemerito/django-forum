@@ -14,10 +14,10 @@
                 <ul class="flow-text">
                     {% for usr in users %}
                         {% if usr.username == 'Phixen' %}
-                        <li><a class="red-text darken-1" href="{% url 'forum:user' usr.id %}">{{ usr.username }}</a> ({{ usr.post_set.count }})</li>
+                        <li><a class="red-text darken-1" href="{% url 'forum:user' usr.username %}">{{ usr.username }}</a> ({{ usr.post_set.count }})</li>
                         <br/>
                         {% else %}
-                        <li><a href="{% url 'forum:user' usr.id %}">{{ usr.username }}</a> ({{ usr.post_set.count }})</li>
+                        <li><a href="{% url 'forum:user' usr.username %}">{{ usr.username }}</a> ({{ usr.post_set.count }})</li>
                         <br/>
                         {% endif %}
                     {% endfor %}
