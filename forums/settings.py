@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '!qvo_db27o=#w&dokhli%xs3xw2d0ar7%@h^@xj*-o1my8v%y!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sam-likereddit.herokuapp.com']
 
 
 # Application definition
