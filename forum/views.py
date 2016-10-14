@@ -1,18 +1,29 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Post
 from .forms import PostForm, CommentForm
 from django.contrib.auth.models import User
 
 
-def index(request):
-    posts = Post.objects.all().order_by('-date_added')
+def index(request):    
     phixen = User.objects.get(id=1)
     tops = Post.objects.filter(author=phixen)
-    context = {'posts': posts, 'tops': tops}
+    post_list = Post.objects.exclude(author=phixen).order_by('-date_added')
+    paginator = Paginator(post_list, 5)
+    page = request.GET.get('page')
 
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    
+    page_numbers = [x for x in range(1, posts.paginator.num_pages+1)]
+    context = {'post_list': post_list, 'tops': tops, 'posts': posts, 'page_numbers': page_numbers}
     return render(request, 'forum/index.html', context)
 
 

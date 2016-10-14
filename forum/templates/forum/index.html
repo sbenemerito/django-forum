@@ -4,32 +4,53 @@
 <div class="row">
     <div class="col s12">
         {% for post in tops %}
-        <div class="card green lighten-5 hoverable">
-            <div class="card-content">
-                <a href="{% url 'forum:post' post.id %}" class="card-title red-text"><b>{{ post.title }}</b></a>
-                <br/>
-                <small>{{ post.date_added|timesince }} | <a class="red-text darken-1" href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+            <div class="card green lighten-5 hoverable">
+                <div class="card-content">
+                    <a href="{% url 'forum:post' post.id %}" class="card-title red-text"><b>{{ post.title }}</b></a>
+                    <br/>
+                    <small>{{ post.date_added|timesince }} | <a class="red-text darken-1" href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+                </div>
+                <div class="card-action">
+                    <a class="green-text text-accent-4" href="{% url 'forum:post' post.id %}">Comments ({{ post.comment_set.count }})</a>
+                </div>
             </div>
-            <div class="card-action">
-                <a class="green-text text-accent-4" href="{% url 'forum:post' post.id %}">Comments ({{ post.comment_set.count }})</a>
-            </div>
-        </div>
         {% endfor %}
 
-        {% for post in posts %}
-        {% if post not in tops %}
-        <div class="card green lighten-5 hoverable">
-            <div class="card-content">
-                <a href="{% url 'forum:post' post.id %}" class="card-title black-text">{{ post.title }}</a>
-                <br/>
-                <small>{{ post.date_added|timesince }} | <a href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+        {% for post in posts %}            
+            <div class="card green lighten-5 hoverable">
+                <div class="card-content">
+                    <a href="{% url 'forum:post' post.id %}" class="card-title black-text">{{ post.title }}</a>
+                    <br/>
+                    <small>{{ post.date_added|timesince }} | <a href="{% url 'forum:user' post.author.username %}">{{ post.author }}</a></small>
+                </div>
+                <div class="card-action">
+                    <a class="green-text text-accent-4" href="{% url 'forum:post' post.id %}">Comments ({{ post.comment_set.count }})</a>
+                </div>
             </div>
-            <div class="card-action">
-                <a class="green-text text-accent-4" href="{% url 'forum:post' post.id %}">Comments ({{ post.comment_set.count }})</a>
-            </div>
-        </div>
-        {% endif %}
         {% endfor %}
+        
+        <ul class="pagination s12">
+            {% if posts.has_previous %}
+                <li class="waves-effect"><a href="?page={{ posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+            {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            {% endif %}
+
+            {% for number in page_numbers %}
+                {% if number == posts.number %}
+                    <li class="active"><a href="#!">{{ number }}</a></li>
+                {% else %}
+                    <li class="waves-effect"><a href="?page={{ number }}">{{ number }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if posts.has_next %}
+                <li class="waves-effect"><a href="?page={{ posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+            {% else %}
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            {% endif %}
+        </ul>
+        
     </div>
 </div>
 {% endblock content %}
