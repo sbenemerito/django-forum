@@ -28,7 +28,7 @@
                 </div>
             </div>
         {% endfor %}
-        
+
         <ul class="pagination s12">
             {% if posts.has_previous %}
                 <li class="waves-effect"><a href="?page={{ posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
@@ -38,7 +38,7 @@
 
             {% for number in page_numbers %}
                 {% if number == posts.number %}
-                    <li class="active"><a href="#!">{{ number }}</a></li>
+                    <li class="active green"><a href="#!">{{ number }}</a></li>
                 {% else %}
                     <li class="waves-effect"><a href="?page={{ number }}">{{ number }}</a></li>
                 {% endif %}
