@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Forum</title>
+    <title>{% block title %}{% endblock title %}</title>
+    {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel='shortcut icon' href="{% static 'favicon.png' %}" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body class="green lighten-4">
@@ -18,7 +20,7 @@
         {% if user.is_authenticated %}
         <div class="row grey darken-4 white-text">
             <br/>
-            <h5>Welcome back,</h5>
+            <h5 id="user_message">Welcome back,</h5>
             <h4><b>{{ user.username }}</b></h4>
             <br/>
         </div>
@@ -30,7 +32,7 @@
         {% else %}
         <div class="row grey darken-4 white-text">
             <br/>
-            <h5><b>Hello there,</b></h5>
+            <h5 id="user_message"><b>Hello there,</b></h5>
             <p>you aren't logged in</p>
             <br/>
         </div>

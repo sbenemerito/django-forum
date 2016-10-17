@@ -20,6 +20,16 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 
+def login_view(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('users:login'))        
+    else:
+        return HttpResponseRedirect(reverse('forum:index'))
+
+
 def logout_view(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('forum:index'))
+    if request.user.is_authenticated:
+        logout(request)
+        return render(request, 'users/logout.html')
+    else:
+        return HttpResponseRedirect(reverse('forum:index'))

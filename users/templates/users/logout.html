@@ -1,0 +1,21 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Forum - Logout{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <div class="card green lighten-5 hoverable">
+            <div class="card-content">
+                <p class="card-title"><b>You have successfully logged out!</b></p>
+            </div>
+        </div>
+        <div class="card green lighten-5 hoverable">
+            <div class="card-action">
+                <a class="green-text text-accent-4" href="{% url 'forum:index' %}">Back to Home</a>
+                <a class="green-text text-accent-4" href="{% url 'users:login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
