@@ -6,15 +6,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 def register(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+         return HttpResponseRedirect(reverse('forum:index'))
+    elif request.method == 'POST':
         form = UserCreationForm(data=request.POST)
 
-        if request.POST['username'] != '' or request.POST['password1'] != '' or request.POST['password2'] != '':
-            if form.is_valid():
+        if request.POST['username'] != '' and request.POST['password1'] != '' and request.POST['password2'] != '':
+            if len(request.POST['username']) < 8:
+                messages.error(request, 'Username should be at least 8 characters')
+            elif form.is_valid():
                 new_user = form.save()
                 authenticated_user = authenticate(username=new_user.username, password=request.POST['password1'])
                 login(request, authenticated_user)
-            return HttpResponseRedirect(reverse('forum:index'))
+                return HttpResponseRedirect(reverse('forum:index'))
         else:
             messages.error(request, 'You left one or more field(s) blank')
             
