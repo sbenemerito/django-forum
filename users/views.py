@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.views import login
 
 def register(request):
     if request.user.is_authenticated:
@@ -29,11 +30,11 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 
-def login_view(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('users:login'))        
+def custom_login(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('forum:index'))     
     else:
-        return HttpResponseRedirect(reverse('forum:index'))
+        return login(request, template_name='users/login.html')
 
 
 def logout_view(request):
